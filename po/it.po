@@ -172,7 +172,7 @@ msgstr "1. Colori"
 
 #: src/menu.c:426
 msgid "2. Cheat"
-msgstr "3. Cheat"
+msgstr "2. Cheat"
 
 #: src/menu.c:427
 msgid "3. Return"
