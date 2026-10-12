@@ -10,7 +10,10 @@
 # TYPESPEED_RULEDIR at the folders next to it instead.
 set -eu
 if [ -f /etc/alpine-release ]; then
-  apk add --no-cache build-base ncurses-dev ncurses-static >/dev/null
+  apk add --no-cache build-base ncurses-dev ncurses-static automake >/dev/null
+  # the shipped config.guess and config.sub (2007) predate arm64; use
+  # automake's current ones
+  cp /usr/share/automake-*/config.guess /usr/share/automake-*/config.sub .
   ldflags="-static"
 else
   ldflags=""
