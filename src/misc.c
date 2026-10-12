@@ -75,6 +75,7 @@ char		*xstrdup(char *);
 void		 xstrncpy(char *, char *, size_t);
 
 extern char	*progname;
+extern struct opt opt;
 
 static int graph = 0;
 

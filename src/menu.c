@@ -76,6 +76,9 @@ void		 tellstory(void);
 
 extern int	 misses;
 extern char	*rankki[11];
+extern struct stats	now;
+extern struct rules	rules;
+extern struct opt	opt;
 
 struct positions {
 	int rank;

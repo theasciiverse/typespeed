@@ -116,6 +116,7 @@ void		setnoblock(void);
 void		writenum(char *, uint32_t);
 
 extern FILE	*netlogfile;
+extern struct opt opt;
 
 static int	 ds = -1;
 static int	 ss = -1;

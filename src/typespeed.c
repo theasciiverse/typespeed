@@ -146,6 +146,7 @@ char *typorank[12] =
 
 FILE		*netlogfile;
 struct stats	 best;
+struct stats	 now;
 int		 hfd;
 int		 misses;
 struct stats	 other;
@@ -155,6 +156,9 @@ char		*usedwordfile;
 int		 wordcount = 0;
 int		 wordpos[22];
 char		 wordstring[22][20];
+struct rules	 rules;
+extern struct rawdata	words;
+extern struct opt	opt;
 
 struct option options[] = {
 	{"cheat", no_argument, &opt.cheat, 1},

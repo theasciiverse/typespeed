@@ -142,6 +142,9 @@ extern int	 hfd;
 extern char	*rankki[11];
 extern char	*typorank[12];
 extern char	*usedwordfile;
+extern struct rules	rules;
+struct rawdata	words;
+struct opt	opt;
 
 char ruledir[MAXPATHLEN];
 char worddir[MAXPATHLEN];
