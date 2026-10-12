@@ -1,0 +1,8 @@
+#!/bin/sh
+# Starts typespeed from an av install: points it at the word lists and
+# rules next to this script, then runs the real binary in lib/. Scores go
+# to ~/.typespeed/score (see PATCHES.md).
+# av links ~/.local/bin/typespeed to this file, so follow that link first.
+self=$(readlink "$0" 2>/dev/null || printf '%s' "$0")
+dir=$(cd "$(dirname "$self")" && pwd)
+TYPESPEED_WORDDIR="$dir/words" TYPESPEED_RULEDIR="$dir/rules" exec "$dir/lib/typespeed" "$@"
