@@ -1127,7 +1127,7 @@ parseline(char *line, char **option, char **value)
 void
 readconfig(void)
 {
-	char *envhome;
+	char *envhome, *envdir;
 	char userhigh[MAXPATHLEN], userconf[MAXPATHLEN];
 	struct stat sb;
 
@@ -1141,6 +1141,12 @@ readconfig(void)
 	}
 
 	readfile(CONFIGFILE, 1);
+
+	/* a relocated install (e.g. through av) names its data folders */
+	if ((envdir = getenv("TYPESPEED_RULEDIR")) != NULL)
+		(void)xsnprintf(ruledir, sizeof(ruledir), "%s", envdir);
+	if ((envdir = getenv("TYPESPEED_WORDDIR")) != NULL)
+		(void)xsnprintf(worddir, sizeof(worddir), "%s", envdir);
 
 	if ((envhome = getenv("HOME")) == NULL)
 		return;

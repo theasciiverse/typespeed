@@ -46,6 +46,7 @@
 #include <ctype.h>
 #include <curses.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 #ifdef HAVE_FCNTL_H
 	#include <fcntl.h>
@@ -117,6 +118,7 @@ extern int		typorankkaus(float);
 extern void		xcolor_set(short);
 extern void		xerr(int, const char *, ...);
 extern void		xerrx(int, const char *, ...);
+extern int		xsnprintf(char *, size_t, const char *, ...);
 extern void		xstrncpy(char *, char *, size_t);
 
 int			addnewword(char *);
@@ -307,6 +309,30 @@ sleep(clock_t wait)
 #endif /* WIN32 */
 
 #ifndef TEST
+/*
+ * Opens ~/.typespeed/score, creating the directory and an empty score file
+ * when they are missing. Used when the system-wide high score file cannot
+ * be opened, e.g. when typespeed is installed by a user, not setgid games.
+ */
+static int
+openuserscore(void)
+{
+	char dir[MAXPATHLEN], file[MAXPATHLEN];
+	char *envhome;
+	int fd;
+
+	if ((envhome = getenv("HOME")) == NULL)
+		xerrx(1, "main: cannot open %s and HOME is not set", HIGHFILE);
+	if (xsnprintf(dir, sizeof(dir), "%s/.typespeed", envhome) ||
+	    xsnprintf(file, sizeof(file), "%s/score", dir))
+		xerrx(1, "main: HOME is too long");
+	if (mkdir(dir, 0755) == -1 && errno != EEXIST)
+		xerr(1, "main: mkdir: %s", dir);
+	if ((fd = open(file, O_RDWR | O_CREAT, 0644)) == -1)
+		xerr(1, "main: open: %s", file);
+	return fd;
+}
+
 int
 main(int argc, char **argv)
 {
@@ -322,9 +348,13 @@ main(int argc, char **argv)
 	else
 		progname++;
 
-	/* just open high score file while being setgid games */
+	/*
+	 * just open high score file while being setgid games; without a
+	 * system-wide high score file (no setgid install), keep scores in
+	 * ~/.typespeed/score, the file readconfig() uses for a user config
+	 */
 	if ((hfd = open(HIGHFILE, O_RDWR, 0)) == -1)
-		xerr(1, "main: open: %s", HIGHFILE);
+		hfd = openuserscore();
 
 #ifndef WIN32
 	/* drop privileges */

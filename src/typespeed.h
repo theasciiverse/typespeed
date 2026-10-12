@@ -27,6 +27,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>		/* clock_t; glibc pulls it in elsewhere, musl does not */
 
 #ifdef WIN32
 	#include <dirent.h>
