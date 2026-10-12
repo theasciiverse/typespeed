@@ -1,4 +1,3 @@
-CC = gcc
 AM_CFLAGS = -I../src -Wall -W -pedantic -std=c99
 
 localedir = $(datadir)/locale
