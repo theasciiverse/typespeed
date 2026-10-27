@@ -1,3 +1,18 @@
+Play it with Asciiverse
+=======================
+
+With av, the Asciiverse client (https://asciiverse.sh):
+
+    av install typespeed
+    av play typespeed
+
+Or download the archive for your system from this repository's Releases,
+unpack it and run ./typespeed (typespeed.exe on Windows).
+
+The original README follows.
+
+------------------------------------------------------------------------
+
 typespeed v0.6.4
 ----------------
 Test your typing speed and get your fingers' CPS.

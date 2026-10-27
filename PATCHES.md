@@ -29,6 +29,9 @@ author). Tagged `debian/0.6.5-12`.
   install finds its word lists and rules.
 - **musl.** typespeed.h includes <time.h> for clock_t, and typespeed.c
   declares xsnprintf like the other files do.
+- **How to play it, at the top of README.** A short note on installing and
+  starting it with av, or from a release archive; the original text follows
+  unchanged.
 
 ## Packaging (new files)
 
